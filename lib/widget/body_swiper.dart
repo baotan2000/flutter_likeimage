@@ -7,20 +7,22 @@ import 'package:provider/provider.dart';
 class SwipeBody extends StatelessWidget {
   const SwipeBody({
     super.key,
+    required this.isFavorite,
     // required this.items,
   });
 
+  final isFavorite;
   // final items;
 
   @override
   Widget build(BuildContext context) {
-
-    final items = Provider.of<ItemProvider>(context).items;
+    final dataItem =Provider.of<ItemProvider>(context);
+    final items = isFavorite ? dataItem.showItemFavorite() : dataItem.items;
 
     return Swiper(
       layout: SwiperLayout.STACK,
-      itemWidth: 350,
-      itemHeight: 650,
+      itemWidth: 370,
+      itemHeight: 680,
       itemCount: items.length,
       itemBuilder: (BuildContext context, index) {
         print(index);

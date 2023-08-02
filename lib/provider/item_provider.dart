@@ -21,6 +21,12 @@ class ItemProvider extends ChangeNotifier {
     return[..._items];
   }
 
+  List<Item> showItemFavorite(){
+    List<Item> data = _items.where((element) => element.isFavorite).toList();
+    return data.isEmpty ? [] : data;
+    //kiem tra xem data co rỗng không? rỗng thì trả về mảng trống, k rỗng trả về data
+  }
+
   void readJson() async {
     final String response = 
           await rootBundle.loadString('assets/json/items.json');

@@ -16,12 +16,25 @@ void main(List<String> args) {
   );
 }
 
-class MyApp extends StatelessWidget {
+enum fillterOption {all, favorite}
+
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+    bool isFavorite = false;
+@override
+  void initState() {
+    // TODO: implement initState
     Provider.of<ItemProvider>(context, listen: false).readJson();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.orangeAccent,
@@ -43,20 +56,29 @@ class MyApp extends StatelessWidget {
         actions: [
           PopupMenuButton(
             onSelected: (value) {
-              
+              setState(() {
+                if(value == fillterOption.all){
+                isFavorite = false;
+              } else {
+                isFavorite = true;
+              }
+              });
             },
               icon: const Icon(Icons.more_vert),
               itemBuilder: (_) => [
                     const PopupMenuItem(
+                      value: fillterOption.all,
                       child: Text("Show all"),
                     ),
                     const PopupMenuItem(
+                      value: fillterOption.favorite,
                       child: Text("Favorite"),
                     ),
                   ]),
         ],
       ),
       body: SwipeBody(
+        isFavorite: isFavorite,
         // items: Items,
       ),
     );
