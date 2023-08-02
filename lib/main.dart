@@ -37,22 +37,22 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.orangeAccent,
+        backgroundColor: Colors.orangeAccent,
         title: const Center(child: Text("Favorite Image")),
-        // leading: Padding(
-        //   padding: const EdgeInsets.fromLTRB(10, 15, 15, 20),
-        //   child: Consumer<ItemProvider>(
-        //     builder: (context, value, child) {
-        //       return Badge(
-        //         label: Text(
-        //           value.favorite.toString(),
-        //           style: const TextStyle(color: Colors.white),
-        //         ),
-        //         child: const Icon(Icons.favorite),
-        //       );
-        //     },
-        //   ),
-        // ),
+        leading: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Consumer<ItemProvider>(
+            builder: (context, item, child) {
+              return Badge(
+                label: Text(
+                  item.countItemFavorite.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                child: const Icon(Icons.favorite),
+              );
+            },
+          ),
+        ),
         actions: [
           PopupMenuButton(
             onSelected: (value) {
@@ -76,6 +76,15 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ]),
         ],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient:LinearGradient(
+              colors: [Colors.red, Colors.yellow],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              ),
+          ),
+        ),
       ),
       body: SwipeBody(
         isFavorite: isFavorite,

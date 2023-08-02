@@ -19,7 +19,7 @@ class SwipeBody extends StatelessWidget {
     final dataItem =Provider.of<ItemProvider>(context);
     final items = isFavorite ? dataItem.showItemFavorite() : dataItem.items;
 
-    return Swiper(
+    return items.isNotEmpty ? Swiper(
       layout: SwiperLayout.STACK,
       itemWidth: 370,
       itemHeight: 680,
@@ -38,6 +38,7 @@ class SwipeBody extends StatelessWidget {
                     return InkWell(
                       onTap: (() {
                         item.toggleIsFavorite();
+                        Provider.of<ItemProvider>(context, listen: false).handleCountItemFav();
                       }),
                       child:  Icon(
                         Icons.favorite,
@@ -61,6 +62,6 @@ class SwipeBody extends StatelessWidget {
           ),
         );
       },
-    );
+    ):Container(child: const Center(child: Text("Opps! Not Image Like", style: TextStyle( fontSize: 30),)),);
   }
 }
